@@ -92,6 +92,8 @@ static const char *incBri[] = {"/usr/local/bin/incBacklight", NULL};
 static const char *decBri[] = {"/usr/local/bin/decBacklight", NULL};
 static const char *screenShotCmd[] = {"/usr/local/bin/maimpick", NULL};
 static const char *powerCmd[] = {"/usr/local/bin/powerpick", NULL};
+static const char *screenKeyCmd[] = {"/usr/local/bin/togglescreenkey", NULL};
+static const char *postmanCmd[] = {"/usr/bin/postman", NULL};
 // XF86MonBrightnessUp
 static const Key keys[] = {
     /* modifier                     key        function        argument */
@@ -104,6 +106,7 @@ static const Key keys[] = {
     {ALT_L | ShiftMask, XK_c, spawn, {.v = editorcmd}},
     {ALT_L | ShiftMask, XK_m, spawn, {.v = musiccmd}},
     {ALT_L | ShiftMask, XK_n, spawn, {.v = notescmd}},
+    {ALT_L | ShiftMask, XK_p, spawn, {.v = postmanCmd }},
 
     // XF86PowerDown
     {0, XF86XK_PowerDown, spawn, {.v = powerCmd}},
@@ -131,6 +134,7 @@ static const Key keys[] = {
     { MODKEY|ControlMask|ShiftMask, XK_Down,   moveresizeedge, {.v = "B"} },
   	{ MODKEY|ControlMask|ShiftMask, XK_Left,   moveresizeedge, {.v = "L"} },
   	{ MODKEY|ControlMask|ShiftMask, XK_Right,  moveresizeedge, {.v = "R"} },
+    {MODKEY, XK_s, spawn, {.v = screenKeyCmd}},
     {MODKEY, XK_e, spawn, {.v = fileManagercmd}},
     {MODKEY, XK_b, togglebar, {0}},
     {MODKEY, XK_j, focusstack, {.i = +1}},
