@@ -81,9 +81,7 @@ static const char *emailcmd[] = { "openmails", NULL};
 static const char *browsercmd[] = {browser, NULL};
 static const char *altbrowsercmd[] = {alt_browser, NULL};
 static const char *fileManagercmd[] = {fileManager, NULL};
-static const char *musiccmd[] = {"/usr/bin/mocp", NULL};
-static const char *notescmd[] = {
-    "/usr/bin/sh", "~/Apps/applications/logSeq/Logseq.AppImage", NULL};
+static const char *notescmd[] = {"/usr/local/bin/logseq", NULL};
 static const char *incVol[] = {"/usr/local/bin/incVol", NULL};
 static const char *decVol[] = {"/usr/local/bin/decVol", NULL};
 static const char *muteVol[] = {"/usr/local/bin/muteVol", NULL};
@@ -94,6 +92,7 @@ static const char *screenShotCmd[] = {"/usr/local/bin/maimpick", NULL};
 static const char *powerCmd[] = {"/usr/local/bin/powerpick", NULL};
 static const char *screenKeyCmd[] = {"/usr/local/bin/togglescreenkey", NULL};
 static const char *postmanCmd[] = {"/usr/bin/postman", NULL};
+static const char *emojiCmd[] = {"/usr/local/bin/emoji", NULL};
 // XF86MonBrightnessUp
 static const Key keys[] = {
     /* modifier                     key        function        argument */
@@ -104,9 +103,10 @@ static const Key keys[] = {
     {ALT_L | ShiftMask, XK_e, spawn, {.v = emailcmd}},
     {ALT_L | ShiftMask, XK_q, spawn, {.v = altbrowsercmd}},
     {ALT_L | ShiftMask, XK_c, spawn, {.v = editorcmd}},
-    {ALT_L | ShiftMask, XK_m, spawn, {.v = musiccmd}},
     {ALT_L | ShiftMask, XK_n, spawn, {.v = notescmd}},
     {ALT_L | ShiftMask, XK_p, spawn, {.v = postmanCmd }},
+    
+    {ALT_L | ControlMask, XK_e, spawn, {.v = emojiCmd }},
 
     // XF86PowerDown
     {0, XF86XK_PowerDown, spawn, {.v = powerCmd}},
