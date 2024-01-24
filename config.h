@@ -126,6 +126,8 @@ static const Key keys[] = {
   	{ MODKEY|ShiftMask,             XK_Up,     moveresize,     {.v = "0x 0y 0w -25h" } },
   	{ MODKEY|ShiftMask,             XK_Right,  moveresize,     {.v = "0x 0y 25w 0h" } },
   	{ MODKEY|ShiftMask,             XK_Left,   moveresize,     {.v = "0x 0y -25w 0h" } },
+    { MODKEY|ShiftMask,             XK_j,      aspectresize,   {.i = +24} },
+    { MODKEY|ShiftMask,             XK_k,      aspectresize,   {.i = -24} },
   	{ MODKEY|ControlMask,           XK_Up,     moveresizeedge, {.v = "t"} },
   	{ MODKEY|ControlMask,           XK_Down,   moveresizeedge, {.v = "b"} },
   	{ MODKEY|ControlMask,           XK_Left,   moveresizeedge, {.v = "l"} },
@@ -177,4 +179,29 @@ static const Button buttons[] = {
     {ClkTagBar, 0, Button1, view, {0}},
     {ClkTagBar, 0, Button3, toggleview, {0}},
     {ClkTagBar, MODKEY, Button1, tag, {0}},
-    {ClkTagBar, MODKEY, Button3, toggletag, {0}}, };
+    {ClkTagBar, MODKEY, Button3, toggletag, {0}}
+};
+
+void aspectresize(const Arg *arg) {
+    	/* only floating windows can be moved */
+    	Client *c;
+    	c = selmon->sel;
+    	float ratio;
+    	int w, h,nw, nh;
+    
+    	if (!c || !arg)
+    		return;
+    	if (selmon->lt[selmon->sellt]->arrange && !c->isfloating)
+    		return;
+    
+    	ratio = (float)c->w / (float)c->h;
+    	h = arg->i;
+    	w = (int)(ratio * h);
+    
+    	nw = c->w + w;
+    	nh = c->h + h;
+    
+    	XRaiseWindow(dpy, c->win);
+    	resize(c, c->x, c->y, nw, nh, True);
+    }
+
