@@ -1,8 +1,8 @@
 #include <X11/XF86keysym.h>
 
-static const unsigned int borderpx = 2; /* border pixel of windows */
+static const unsigned int borderpx = 4; /* border pixel of windows */
 static const unsigned int borderalpha = 9; /* border pixel of windows */
-static const unsigned int baralpha = 25; /* border pixel of windows */
+static const unsigned int baralpha = 0; /* border pixel of windows */
 static const unsigned int gappx = 10;
 static const unsigned int snap = 12;    /* snap pixel */
 
@@ -10,7 +10,7 @@ static const int showbar = 0;           /* 0 means no bar */
 static const int topbar = 1;            /* 0 means bottom bar */
 
 static const char *fonts[] = {"JetBrains Mono:size=16"};
-static const char dmenufont[] = "JetBrains Mono:size=16";
+static const char dmenufont[] = "JetBrains Mono:size=18";
 
 static const char bg_norm[] = "#1E1E2E";
 static const char border_norm[] = "#6C7086";
@@ -100,8 +100,8 @@ static const char *blueCmd[] = {"/home/immortal/.local/bin/bpick", NULL};
 static const char *emojiCmd[] = {"/usr/local/bin/emoji", NULL};
 static const char *sysact[] = {"/usr/local/bin/sysact", NULL};
 
-static const char *nextTrackCmd[] = {"/usr/bin/playerctl", "next"};
-static const char *prevTrackCmd[] = {"/usr/bin/playerctl", "previous"};
+static const char *nextTrackCmd[] = {"/home/immortal/.local/bin/nextTrack"};
+static const char *prevTrackCmd[] = {"/home/immortal/.local/bin/prevTrack"};
 static const char *toggleTrackCmd[] = {"/usr/bin/playerctl", "play-pause"};
 
 
@@ -112,14 +112,14 @@ static const Key keys[] = {
     /* Application Launchers */
     /* Browser */
     {Ctrl | ShiftMask, XK_l, spawn, {.v = lockcmd}},
-    {Ctrl | ShiftMask, XK_w, spawn, {.v = browsercmd}},
-    {Ctrl | ShiftMask|  Alt, XK_q, spawn, {.v = altbrowsercmd}},
+    {MODKEY, XK_w, spawn, {.v = browsercmd}},
+    {Ctrl | ShiftMask |  Alt, XK_q, spawn, {.v = altbrowsercmd}},
     {Ctrl | ShiftMask , XK_s, spawn, {.v = screenShotCmd}},
     /* Terminal */
     {MODKEY, XK_Return, spawn, {.v = termcmd}},
     {MODKEY | Alt, XK_Return, spawn, {.v = alttermcmd}},
     /* Notes */
-    {Ctrl | ShiftMask, XK_n, spawn, {.v = notescmd}},
+    {MODKEY , XK_n, spawn, {.v = notescmd}},
     /* HTTP Client */
     {Ctrl | ShiftMask, XK_h, spawn, {.v = postmanCmd }},
 
@@ -130,6 +130,18 @@ static const Key keys[] = {
     {MODKEY | ShiftMask, XK_s, spawn, {.v = screenShotCmd}},
     {MODKEY | ShiftMask, XK_b, spawn, {.v = blueCmd }},
 
+
+    // Media
+    { MODKEY,			XK_minus,	spawn,		{.v = decVol}},
+    { MODKEY,			XK_equal,	spawn,		{.v = incVol}},
+
+    { MODKEY,			XK_comma,	spawn,		SHCMD("playerctl previous") },
+    { MODKEY,			XK_period,	spawn,		SHCMD("playerctl play-pause") },
+    { MODKEY,			XK_slash,	spawn,		SHCMD("playerctl next") },
+
+    // Backlight
+    { MODKEY,			XK_underscore,	spawn,		{.v = decBri }},
+    { MODKEY,			XK_plus,	spawn,		{.v = incBri }},
 
     // Extras
     {0, XF86XK_AudioNext, spawn, { .v = nextTrackCmd }},
@@ -186,9 +198,15 @@ static const Key keys[] = {
     {MODKEY, XK_period, focusmon, {.i = +1}},
     {MODKEY | ShiftMask, XK_comma, tagmon, {.i = -1}},
     {MODKEY | ShiftMask, XK_period, tagmon, {.i = +1}},
-    TAGKEYS(XK_1, 0) TAGKEYS(XK_2, 1) TAGKEYS(XK_3, 2) TAGKEYS(XK_4, 3)
-        TAGKEYS(XK_5, 4) TAGKEYS(XK_6, 5) TAGKEYS(XK_7, 6) TAGKEYS(XK_8, 7)
-            TAGKEYS(XK_9, 8) 
+    TAGKEYS(XK_1, 0)
+    TAGKEYS(XK_2, 1)
+    TAGKEYS(XK_3, 2) 
+    TAGKEYS(XK_4, 3)
+    TAGKEYS(XK_5, 4) 
+    TAGKEYS(XK_6, 5)
+    TAGKEYS(XK_7, 6)
+    TAGKEYS(XK_8, 7)
+    TAGKEYS(XK_9, 8) 
     /*	{ MODKEY,             XK_q,      quit,           {0} }, */
 };
 
